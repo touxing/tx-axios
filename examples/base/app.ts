@@ -76,13 +76,18 @@ axios({
     a: 2,
     b: 2
   }
+}).then(res => {
+  console.log(res)
 })
-debugger
+
 axios({
   method: 'post',
   url: '/base/post',
   headers: {
     'content-type': 'application/json'
+  },
+  params: {
+    test: 'testid'
   },
   data: {
     a: 1,

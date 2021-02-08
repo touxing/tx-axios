@@ -9,8 +9,6 @@ const app = express()
 const compiler = webpack(WebpackConfig)
 const router = express.Router()
 
-app.use(router)
-
 app.use(webpackDevMiddleware(compiler, {
   publicPath: '/__build__/',
   stats: {
@@ -23,8 +21,12 @@ app.use(webpackHotMiddleware(compiler))
 
 app.use(express.static(__dirname))
 
+// create application/x-www-form-urlencoded parser
+app.use(bodyParser.urlencoded({ extended: false }))
+// create application/json parser
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+// 中间件引入顺序有依赖关系
+app.use(router)
 
 router.get('/simple/get', function(req, res) {
   res.json({
