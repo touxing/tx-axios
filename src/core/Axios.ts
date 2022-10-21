@@ -1,8 +1,16 @@
-import { AxiosInstance, AxiosPromise, AxiosRequestConfig } from '../types'
+import { AxiosInstance, AxiosPromise, AxiosRequestConfig, Method } from '../types'
 import dispacthRequest from './distpachRequest'
 
 export default class Axios {
-  request(config: AxiosInstance): AxiosPromise {
+  request(url: any, config: any): AxiosPromise {
+    if (typeof url === 'string') {
+      if (!config) {
+        config = {}
+      }
+      config.url = url
+    } else {
+      config = url
+    }
     return dispacthRequest(config)
   }
 
@@ -10,11 +18,54 @@ export default class Axios {
     return this._requestMethodWithoutData('get', url, config)
   }
 
+  delete(url: string, config?: AxiosRequestConfig): AxiosPromise {
+    return this._requestMethodWithoutData('delete', url, config)
+  }
+
+  head(url: string, config?: AxiosRequestConfig): AxiosPromise {
+    return this._requestMethodWithoutData('head', url, config)
+  }
+
+  options(url: string, config?: AxiosRequestConfig): AxiosPromise {
+    return this._requestMethodWithoutData('options', url, config)
+  }
+
+  post(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise {
+    return this._requestMethodWithData('post', url, data, config)
+  }
+
+  put(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise {
+    return this._requestMethodWithData('put', url, data, config)
+  }
+
+  patch(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise {
+    return this._requestMethodWithData('patch', url, data, config)
+  }
+
   private _requestMethodWithoutData(
-    arg0: string,
+    method: Method,
     url: string,
-    config: AxiosRequestConfig | undefined
+    config?: AxiosRequestConfig
   ): AxiosPromise {
-    throw new Error('Method not implemented.')
+    return this.request(
+      Object.assign(config || {}, {
+        method,
+        url
+      })
+    )
+  }
+  private _requestMethodWithData(
+    method: Method,
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig
+  ): AxiosPromise {
+    return this.request(
+      Object.assign(config || {}, {
+        method,
+        url,
+        data
+      })
+    )
   }
 }

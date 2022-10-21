@@ -38,5 +38,6 @@ axios({
 }).catch((e: AxiosError) => {
   console.log(e.message)
   console.log(e.code)
-  console.log(e)
+  console.log(e.config)
+  console.log(e.request)
 })

@@ -28,22 +28,21 @@ app.use(bodyParser.json())
 // 中间件引入顺序有依赖关系
 app.use(router)
 
-router.get('/simple/get', function(req, res) {
-  res.json({
-    msg: `hello world`
+registeBaseRouter()
+registeSimpleRouter()
+registeExtendRouter()
+
+function registeBaseRouter() {
+  router.get('/base/get', function(req, res) {
+    res.json(req.query)
   })
-})
 
-router.get('/base/get', function(req, res) {
-  res.json(req.query)
-})
+  router.post('/base/post', function(req, res) {
+    res.json(req.body)
+  })
 
-router.post('/base/post', function(req, res) {
-  res.json(req.body)
-})
-
-router.post('/base/buffer', function(req, res) {
-  let msg = []
+  router.post('/base/buffer', function(req, res) {
+    let msg = []
   req.on('data', (chunk) => {
     if (chunk) {
       msg.push(chunk)
@@ -53,7 +52,16 @@ router.post('/base/buffer', function(req, res) {
     let buf = Buffer.concat(msg)
     res.json(buf.toJSON())
   })
-})
+  })
+}
+
+function registeSimpleRouter() {
+  router.get('/simple/get', function(req, res) {
+    res.json({
+      msg: `hello world`
+    })
+  })
+}
 
 router.get('/error/get', function(req, res) {
   if (Math.random() > 0.5) {
@@ -73,6 +81,43 @@ router.get('/error/timeout', function(req, res) {
     })
   }, 3000)
 })
+
+function registeExtendRouter() {
+  router.get('/extend/get', function(req, res) {
+    res.json({msg: 'get'})
+  })
+
+  router.options('/extend/options', function(req, res) {
+    res.end()
+  })
+  router.head('/extend/head', function(req, res) {
+    res.end()
+  })
+  router.patch('/extend/patch', function(req, res) {
+    res.end()
+  })
+  router.delete('/extend/delete', function(req, res) {
+    res.end()
+  })
+  router.put('/extend/put', function(req, res) {
+    res.json(req.body)
+  })
+  router.post('/extend/post', function(req, res) {
+    res.json(req.body)
+  })
+
+  router.get('/extend/user', function(req, res) {
+    res.json({
+      code: 200,
+      message: 'success',
+      result: {
+        name: 'LiSanTer',
+        age: 18
+      }
+    })
+  })
+
+}
 
 
 const port = process.env.PORT || 8080
