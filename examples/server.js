@@ -31,6 +31,7 @@ app.use(router)
 registeBaseRouter()
 registeSimpleRouter()
 registeExtendRouter()
+registeInterceptor()
 
 function registeBaseRouter() {
   router.get('/base/get', function(req, res) {
@@ -117,6 +118,12 @@ function registeExtendRouter() {
     })
   })
 
+}
+
+function registeInterceptor() {
+  router.get('/interceptor/get', function(req, res) {
+    res.json('hello')
+  })
 }
 
 
