@@ -14,6 +14,24 @@ export type Method =
   | 'patch'
   | 'PATCH'
 
+export interface HeadersDefaults {
+  common: any
+  delete: any
+  get: any
+  head: any
+  post: any
+  put: any
+  patch: any
+  options?: any
+  purge?: any
+  link?: any
+  unlink?: any
+}
+
+export interface AxiosDefaults<D = any> {
+  headers: HeadersDefaults
+}
+
 export interface AxiosRequestConfig extends Axios {
   url?: string
   method?: Method
@@ -48,13 +66,14 @@ export interface AxiosError<T = any> extends Error {
 }
 
 export interface Axios {
-  defaults: {
-    headers: any
-  }
+  defaults: AxiosDefaults
+
   interceptors: {
     request: AxiosInterceptorManager<AxiosRequestConfig>
     response: AxiosInterceptorManager<AxiosResponse>
   }
+  transformRequest?: AxiosTransformer | AxiosTransformer[]
+  transformResponse?: AxiosTransformer | AxiosTransformer[]
 
   request<T = any>(config: AxiosRequestConfig): AxiosPromise<T>
 
