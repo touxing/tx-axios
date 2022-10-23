@@ -33,6 +33,7 @@ registeSimpleRouter()
 registeExtendRouter()
 registeInterceptor()
 registeConfig()
+registeCancel()
 
 function registeBaseRouter() {
   router.get('/base/get', function(req, res) {
@@ -130,6 +131,19 @@ function registeInterceptor() {
 function registeConfig() {
   router.post('/config/post', function(req, res) {
     res.json(req.body)
+  })
+}
+
+function registeCancel() {
+  router.get('/cancel/get', function(req, res) {
+    setTimeout(() => {
+      res.json(req.query)
+    }, 1000)
+  })
+  router.post('/cancel/post', function(req, res) {
+    setTimeout(() => {
+      res.json(req.body)
+    }, 1000);
   })
 }
 
