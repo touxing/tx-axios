@@ -1,8 +1,7 @@
 import axios from '../../src/index'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-console.log(NProgress);
-
+console.log(NProgress)
 
 document.cookie = 'a=2'
 
@@ -30,17 +29,17 @@ const instance = axios.create({
 })
 
 instance.get('/more/get').then(res => {
-  console.log('xsrf',res)
+  console.log('xsrf', res)
 })
 
-function calculatePercentage(loaded:number, total:number) {
+function calculatePercentage(loaded: number, total: number) {
   return Math.floor(loaded * 1.0) / total
 }
 
 function loadProgressBar() {
   const setupStartProgress = () => {
     instance.interceptors.request.use(config => {
-      console.log('start');
+      console.log('start')
 
       NProgress.start()
       return config
@@ -48,8 +47,8 @@ function loadProgressBar() {
   }
 
   const setupUpdateProgress = () => {
-    const update = (e:ProgressEvent)=>{
-      console.log(e);
+    const update = (e: ProgressEvent) => {
+      console.log(e)
       NProgress.set(calculatePercentage(e.loaded, e.total))
     }
     instance.defaults.onDownloadProgress = update
@@ -57,13 +56,16 @@ function loadProgressBar() {
   }
 
   const setupStopProgress = () => {
-    instance.interceptors.response.use(response => {
-      NProgress.done()
-      return response
-    }, error => {
-      NProgress.done()
-      return Promise.reject(error)
-    })
+    instance.interceptors.response.use(
+      response => {
+        NProgress.done()
+        return response
+      },
+      error => {
+        NProgress.done()
+        return Promise.reject(error)
+      }
+    )
   }
 
   setupStartProgress()
@@ -75,7 +77,7 @@ loadProgressBar()
 
 const downloadEl = document.getElementById('download')
 
-downloadEl?.addEventListener('click', e=> {
+downloadEl?.addEventListener('click', e => {
   instance.get('http://backstageimgtest.static.ligujoy.com/2020052814261390_8443.jpg')
 })
 
@@ -84,8 +86,28 @@ const uploadEl = document.getElementById('upload')
 uploadEl?.addEventListener('click', e => {
   const data = new FormData()
   const fileEl = document.getElementById('file') as HTMLInputElement
-  if(fileEl.files) {
+  if (fileEl.files) {
     data.append('file', fileEl.files[0])
     instance.post('/more/upload', data)
   }
 })
+
+axios
+  .post(
+    '/more/post',
+    {
+      ab: 1
+    },
+    {
+      auth: {
+        username: 'wang',
+        password: '123b'
+      }
+    }
+  )
+  .then(res => {
+    console.log(res)
+  })
+  .catch(err => {
+    console.error(err)
+  })

@@ -6,6 +6,7 @@ const webpackHotMiddleware = require('webpack-hot-middleware')
 const WebpackConfig = require('./webpack.config')
 const path = require('path')
 const multiparty = require('connect-multiparty')
+const atob = require('atob')
 
 const app = express()
 const compiler = webpack(WebpackConfig)
@@ -30,9 +31,11 @@ app.use(
     }
   })
 )
-app.use(multiparty({
-  uploadDir: path.resolve(__dirname, 'upload-file')
-}))
+app.use(
+  multiparty({
+    uploadDir: path.resolve(__dirname, 'upload-file')
+  })
+)
 
 // create application/x-www-form-urlencoded parser
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -167,8 +170,20 @@ function registerMore() {
   })
 
   router.post('/more/upload', function(req, res) {
-    console.log(req.body, req.files);
+    console.log(req.body, req.files)
     res.end('upload success!')
+  })
+
+  router.post('/more/post', function(req, res) {
+    const { authorization: auth } = req.headers
+    const [type, credentials] = auth.split(' ')
+    const [username, password] = atob(credentials).split(':')
+    if (type === 'Basic' && username === 'wang' && password === '123b') {
+      res.json(req.body)
+    } else {
+      res.status(401)
+      res.end('UnAuthorization')
+    }
   })
 }
 
