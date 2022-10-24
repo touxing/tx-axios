@@ -30,6 +30,8 @@ export interface HeadersDefaults {
 
 export interface AxiosDefaults<D = any> {
   headers: HeadersDefaults
+  onDownloadProgress?: (e: ProgressEvent<EventTarget>) => void
+  onUploadProgress?: (e: ProgressEvent<EventTarget>) => void
 }
 
 export interface AxiosRequestConfig extends Axios {
@@ -47,6 +49,8 @@ export interface AxiosRequestConfig extends Axios {
   withCredentials?: boolean
   xsrfCookieName?: string
   xsrfHeaderName?: string
+  onDownLoadProgress?: (e: ProgressEvent) => void
+  onUploadProgress?: (e: ProgressEvent) => void
 }
 
 export interface AxiosResponse<T = any> {

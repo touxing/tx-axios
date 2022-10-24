@@ -8,13 +8,13 @@ export function transformRequest(data: any): any {
 }
 
 export function transformResponse(data: any): any {
-  let result = null
-  if (typeof data === 'string' && data !== '') {
-    try {
-      result = JSON.parse(data)
-    } catch (error) {
-      console.warn(error)
-    }
-  }
+  let result = data
+  // if (typeof data === 'string' && data !== '') {
+  //   try {
+  //     result = JSON.parse(data)
+  //   } catch (error) {
+  //     console.warn(error)
+  //   }
+  // }
   return result
 }

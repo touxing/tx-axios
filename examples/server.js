@@ -4,6 +4,8 @@ const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 const WebpackConfig = require('./webpack.config')
+const path = require('path')
+const multiparty = require('connect-multiparty')
 
 const app = express()
 const compiler = webpack(WebpackConfig)
@@ -28,6 +30,9 @@ app.use(
     }
   })
 )
+app.use(multiparty({
+  uploadDir: path.resolve(__dirname, 'upload-file')
+}))
 
 // create application/x-www-form-urlencoded parser
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -36,15 +41,15 @@ app.use(bodyParser.json())
 // 中间件引入顺序有依赖关系
 app.use(router)
 
-registeBaseRouter()
-registeSimpleRouter()
-registeExtendRouter()
-registeInterceptor()
-registeConfig()
-registeCancel()
-registeMore()
+registerBaseRouter()
+registerSimpleRouter()
+registerExtendRouter()
+registerInterceptor()
+registerConfig()
+registerCancel()
+registerMore()
 
-function registeBaseRouter() {
+function registerBaseRouter() {
   router.get('/base/get', function(req, res) {
     res.json(req.query)
   })
@@ -67,7 +72,7 @@ function registeBaseRouter() {
   })
 }
 
-function registeSimpleRouter() {
+function registerSimpleRouter() {
   router.get('/simple/get', function(req, res) {
     res.json({
       msg: `hello world`
@@ -94,7 +99,7 @@ router.get('/error/timeout', function(req, res) {
   }, 3000)
 })
 
-function registeExtendRouter() {
+function registerExtendRouter() {
   router.get('/extend/get', function(req, res) {
     res.json({ msg: 'get' })
   })
@@ -130,19 +135,19 @@ function registeExtendRouter() {
   })
 }
 
-function registeInterceptor() {
+function registerInterceptor() {
   router.get('/interceptor/get', function(req, res) {
     res.json('hello')
   })
 }
 
-function registeConfig() {
+function registerConfig() {
   router.post('/config/post', function(req, res) {
     res.json(req.body)
   })
 }
 
-function registeCancel() {
+function registerCancel() {
   router.get('/cancel/get', function(req, res) {
     setTimeout(() => {
       res.json(req.query)
@@ -155,10 +160,15 @@ function registeCancel() {
   })
 }
 
-function registeMore() {
+function registerMore() {
   router.get('/more/get', function(req, res) {
     // res.json(req.query)
     res.end()
+  })
+
+  router.post('/more/upload', function(req, res) {
+    console.log(req.body, req.files);
+    res.end('upload success!')
   })
 }
 
