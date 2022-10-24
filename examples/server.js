@@ -9,17 +9,25 @@ const app = express()
 const compiler = webpack(WebpackConfig)
 const router = express.Router()
 
-app.use(webpackDevMiddleware(compiler, {
-  publicPath: '/__build__/',
-  stats: {
-    colors: true,
-    chunks: false
-  }
-}))
+app.use(
+  webpackDevMiddleware(compiler, {
+    publicPath: '/__build__/',
+    stats: {
+      colors: true,
+      chunks: false
+    }
+  })
+)
 
 app.use(webpackHotMiddleware(compiler))
 
-app.use(express.static(__dirname))
+app.use(
+  express.static(__dirname, {
+    setHeaders(res) {
+      res.cookie('XSRF-TOKEN-D', '1234abc')
+    }
+  })
+)
 
 // create application/x-www-form-urlencoded parser
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -47,15 +55,15 @@ function registeBaseRouter() {
 
   router.post('/base/buffer', function(req, res) {
     let msg = []
-  req.on('data', (chunk) => {
-    if (chunk) {
-      msg.push(chunk)
-    }
-  })
-  req.on('end', () => {
-    let buf = Buffer.concat(msg)
-    res.json(buf.toJSON())
-  })
+    req.on('data', chunk => {
+      if (chunk) {
+        msg.push(chunk)
+      }
+    })
+    req.on('end', () => {
+      let buf = Buffer.concat(msg)
+      res.json(buf.toJSON())
+    })
   })
 }
 
@@ -88,7 +96,7 @@ router.get('/error/timeout', function(req, res) {
 
 function registeExtendRouter() {
   router.get('/extend/get', function(req, res) {
-    res.json({msg: 'get'})
+    res.json({ msg: 'get' })
   })
 
   router.options('/extend/options', function(req, res) {
@@ -120,7 +128,6 @@ function registeExtendRouter() {
       }
     })
   })
-
 }
 
 function registeInterceptor() {
@@ -144,7 +151,7 @@ function registeCancel() {
   router.post('/cancel/post', function(req, res) {
     setTimeout(() => {
       res.json(req.body)
-    }, 1000);
+    }, 1000)
   })
 }
 
@@ -154,7 +161,6 @@ function registeMore() {
     res.end()
   })
 }
-
 
 const port = process.env.PORT || 8080
 module.exports = app.listen(port, () => {

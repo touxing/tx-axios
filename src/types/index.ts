@@ -45,6 +45,8 @@ export interface AxiosRequestConfig extends Axios {
   [propName: string]: any
   cancelToken?: CancelToken
   withCredentials?: boolean
+  xsrfCookieName?: string
+  xsrfHeaderName?: string
 }
 
 export interface AxiosResponse<T = any> {
