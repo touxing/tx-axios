@@ -185,6 +185,11 @@ function registerMore() {
       res.end('UnAuthorization')
     }
   })
+
+  router.get('/more/304', function(req, res) {
+    res.status(304)
+    res.end()
+  })
 }
 
 const port = process.env.PORT || 8080

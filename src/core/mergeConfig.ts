@@ -43,7 +43,7 @@ stratKeysFromVal2.forEach(key => {
  */
 export default function mergeConfig(config1: AxiosRequestConfig, config2?: AxiosRequestConfig) {
   if (!config2) {
-    config2 = {}
+    config2 = {} as AxiosRequestConfig
   }
 
   const config = Object.create(null)

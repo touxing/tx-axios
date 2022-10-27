@@ -2,6 +2,7 @@ import { transformRequest, transformResponse } from './helpers/data'
 import { processHeaders } from './helpers/headers'
 import { AxiosRequestConfig } from './types'
 
+// @ts-ignore
 const defaults: AxiosRequestConfig = {
   method: 'get',
   timeout: 0,
@@ -22,7 +23,10 @@ const defaults: AxiosRequestConfig = {
     }
   ],
   xsrfCookieName: 'XSRF-TOKEN',
-  xsrfHeaderName: 'X-XSRF-TOKEN'
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+  validateStatus(status: number): boolean {
+    return status >= 200 && status < 300
+  }
 }
 
 const methodsNoData = ['delete', 'get', 'head', 'options']

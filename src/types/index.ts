@@ -44,7 +44,6 @@ export interface AxiosRequestConfig extends Axios {
   timeout?: number
   transformRequest?: AxiosTransformer | AxiosTransformer[]
   transformResponse?: AxiosTransformer | AxiosTransformer[]
-  [propName: string]: any
   cancelToken?: CancelToken
   withCredentials?: boolean
   xsrfCookieName?: string
@@ -52,6 +51,10 @@ export interface AxiosRequestConfig extends Axios {
   auth?: AxiosBasicCredentials
   onDownLoadProgress?: (e: ProgressEvent) => void
   onUploadProgress?: (e: ProgressEvent) => void
+  validateStatus?: (status: number) => boolean
+  paramsSerializer?: (params: any) => string
+
+  [propName: string]: any
 }
 
 export interface AxiosResponse<T = any> {
