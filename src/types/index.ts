@@ -49,6 +49,7 @@ export interface AxiosRequestConfig extends Axios {
   xsrfCookieName?: string
   xsrfHeaderName?: string
   auth?: AxiosBasicCredentials
+  baseURL?: string
   onDownLoadProgress?: (e: ProgressEvent) => void
   onUploadProgress?: (e: ProgressEvent) => void
   validateStatus?: (status: number) => boolean
@@ -85,6 +86,7 @@ export interface Axios {
   }
   transformRequest?: AxiosTransformer | AxiosTransformer[]
   transformResponse?: AxiosTransformer | AxiosTransformer[]
+  getUri(config: AxiosRequestConfig): string
 
   request<T = any>(config: AxiosRequestConfig): AxiosPromise<T>
 
@@ -108,11 +110,17 @@ export interface AxiosInstance extends Axios {
   <T = any>(url: string, config?: AxiosPromise): AxiosPromise<T>
 }
 
+export interface AxiosClassStaitc {
+  new (config: AxiosRequestConfig): Axios
+}
 export interface AxiosStatic extends AxiosInstance {
   create(config?: AxiosRequestConfig): AxiosInstance
   CancelToken: CancelTokenStatic
   Cancel: CancelStatic
   isCancel: (value: any) => boolean
+  all<T>(promise: Array<T | Promise<T>>): Promise<T[]>
+  spread<T, R>(callback: (...args: T[]) => R): (arr: T[]) => R
+  Axios: AxiosClassStaitc
 }
 
 export interface AxiosInterceptorManager<T> {

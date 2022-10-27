@@ -175,3 +175,36 @@ axios
   }).then(res => {
     console.log(res)
   })
+
+  function getA() {
+    return axios.get('/more/get', {params: {
+      a: 1
+    }})
+  }
+  function getB() {
+    return axios.get('/more/get', {
+      params: {
+        a: 2
+      }
+    })
+  }
+
+  axios.all([getA(), getB()]).then(axios.spread(function(resA, resB) {
+    console.log('resA',resA.data);
+    console.log('resB',resB.data);
+  }))
+  axios.all([getA(), getB()]).then(([resA, resB]) => {
+    console.log('resA',resA.data);
+    console.log('resB',resB.data);
+  })
+
+  const fakeConfig = {
+    baseURL: 'https://www.baidu.com',
+    url: '/user/123',
+    params: {
+      idClient: 1,
+      idTest: 2,
+      testString: 'testString'
+     }
+  }
+  console.log('getUri',axios.getUri(fakeConfig));

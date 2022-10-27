@@ -165,7 +165,7 @@ function registerCancel() {
 
 function registerMore() {
   router.get('/more/get', function(req, res) {
-    // res.json(req.query)
+    res.json(req.query)
     res.end()
   })
 

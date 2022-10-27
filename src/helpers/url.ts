@@ -94,3 +94,17 @@ function resolveURL(url: string): URLOrigin {
     host
   }
 }
+
+export function isAbsoluteURL(url: string): boolean {
+  return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url)
+}
+
+/**
+ * @desc 组合成完整的url路径
+ * @param baseURL
+ * @param relativeURL
+ * @returns
+ */
+export function combineURL(baseURL: string, relativeURL?: string): string {
+  return relativeURL ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '') : baseURL
+}

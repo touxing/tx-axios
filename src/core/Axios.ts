@@ -7,7 +7,7 @@ import {
   ResolvedFn,
   RejectedFn
 } from '../types'
-import dispacthRequest from './distpachRequest'
+import dispacthRequest, { transformURL } from './distpachRequest'
 import InterceptorManager from './interceptorManager'
 import mergeConfig from './mergeConfig'
 
@@ -122,5 +122,10 @@ export default class Axios {
         data
       })
     )
+  }
+
+  getUri(config?: AxiosRequestConfig): string {
+    config = mergeConfig(this.defaults, config)
+    return transformURL(config!)
   }
 }
