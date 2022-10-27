@@ -7,6 +7,7 @@ const WebpackConfig = require('./webpack.config')
 const path = require('path')
 const multiparty = require('connect-multiparty')
 const atob = require('atob')
+const https = require('https')
 
 const app = express()
 const compiler = webpack(WebpackConfig)
@@ -189,6 +190,22 @@ function registerMore() {
   router.get('/more/304', function(req, res) {
     res.status(304)
     res.end()
+  })
+
+  router.get('/proxy', function(req, resp) {
+    https
+      .get('https://www.baidu.com/', res => {
+        let data = ''
+        res.on('data', d => {
+          data += d
+        })
+        res.on('end', () => {
+          resp.send(data)
+        })
+      })
+      .on('error', e => {
+        resp.status(500).send('Server Inner Error')
+      })
   })
 }
 

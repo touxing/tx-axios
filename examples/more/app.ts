@@ -176,6 +176,17 @@ axios
     console.log(res)
   })
 
+  let instance2 = axios.create({
+    baseURL: 'https://www.baidu.com'
+  })
+  instance2.get('/s?wd=axios')
+  instance2.get('/s?wd=变成高手')
+  axios.get('/proxy', {
+    params: {
+      url: 'https://www.baidu.com/s?wd=高手'
+    }
+  })
+
   function getA() {
     return axios.get('/more/get', {params: {
       a: 1
