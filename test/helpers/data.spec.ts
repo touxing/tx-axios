@@ -16,10 +16,7 @@ describe('helpers:data', () => {
   describe('transformResponse', () => {
     test('should transform response data to Object if data is a JSON string', () => {
       const a = '{"a": 2}'
-      const config = {
-        responseType: 'json'
-      } as any
-      expect(transformResponse(a, config)).toEqual({ a: 2 })
+      expect(transformResponse(a, { 'content-type': 'application/json' })).toEqual({ a: 2 })
     })
 
     test('should do nothing if data is a string but not a JSON string', () => {

@@ -179,8 +179,8 @@ axios
   let instance2 = axios.create({
     baseURL: 'https://www.baidu.com'
   })
-  instance2.get('/s?wd=axios')
-  instance2.get('/s?wd=变成高手')
+  // instance2.get('/s?wd=axios')
+  // instance2.get('/s?wd=变成高手')
   axios.get('/proxy', {
     params: {
       url: 'https://www.baidu.com/s?wd=高手'
@@ -201,7 +201,7 @@ axios
   }
 
   axios.all([getA(), getB()]).then(axios.spread(function(resA, resB) {
-    console.log('resA',resA.data);
+    console.log('resA',resA.data.a);
     console.log('resB',resB.data);
   }))
   axios.all([getA(), getB()]).then(([resA, resB]) => {

@@ -8,9 +8,9 @@ export function transformRequest(data: any): any {
   return data
 }
 
-export function transformResponse(data: any, config?: AxiosRequestConfig): any {
+export function transformResponse(data: any, headers?: any): any {
   let result = data
-  const JSONRequested = config?.responseType === 'json'
+  const JSONRequested = headers?.['content-type']?.indexOf('application/json') > -1
   if (data && isString(data) && JSONRequested) {
     try {
       result = JSON.parse(data)

@@ -1,11 +1,11 @@
 import {
-  AxiosInstance,
   AxiosPromise,
   AxiosRequestConfig,
   AxiosResponse,
   Method,
   ResolvedFn,
-  RejectedFn
+  RejectedFn,
+  Axios as AxiosInterface
 } from '../types'
 import dispacthRequest, { transformURL } from './distpachRequest'
 import InterceptorManager from './interceptorManager'
@@ -21,7 +21,7 @@ interface PromiseChain {
   rejected?: RejectedFn
 }
 
-export default class Axios {
+export default class Axios implements AxiosInterface {
   defaults: AxiosRequestConfig
   interceptors: Interceptors
 
@@ -43,6 +43,7 @@ export default class Axios {
       config = url
     }
     config = mergeConfig(this.defaults, config)
+    config.method = config.method.toLowerCase()
 
     const chain: PromiseChain[] = [
       {
