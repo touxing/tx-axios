@@ -28,8 +28,8 @@ export interface HeadersDefaults {
   unlink?: any
 }
 
-export interface AxiosDefaults<D = any> {
-  headers?: HeadersDefaults
+export interface AxiosDefaults {
+  headers: HeadersDefaults
   onDownloadProgress?: (e: ProgressEvent<EventTarget>) => void
   onUploadProgress?: (e: ProgressEvent<EventTarget>) => void
 }
@@ -78,9 +78,9 @@ export interface AxiosError<T = any> extends Error {
 }
 
 export interface Axios {
-  defaults: AxiosDefaults
+  defaults: AxiosRequestConfig
 
-  interceptors?: {
+  interceptors: {
     request: AxiosInterceptorManager<AxiosRequestConfig>
     response: AxiosInterceptorManager<AxiosResponse>
   }

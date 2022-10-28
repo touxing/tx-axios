@@ -153,7 +153,7 @@ axios
     console.log(res)
   })
 
-  const instance = axios.create({
+  const instance3 = axios.create({
     paramsSerializer(params) {
       return qs.stringify(params, { arrayFormat: 'brackets' })
     }
@@ -166,7 +166,7 @@ axios
   }, { arrayFormat: 'brackets' }));
 
 
-  instance.get('/more/get', {
+  instance3.get('/more/get', {
     params: {
       a: 1,
       b: 2,
