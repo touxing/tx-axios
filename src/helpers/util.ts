@@ -1,5 +1,7 @@
 export const toString = Object.prototype.toString
 
+const typeOfTest = (type: any) => (thing: any) => typeof thing === type
+
 export function isDate(val: any): val is Date {
   return toString.call(val) === '[object Date]'
 }
@@ -19,6 +21,15 @@ export function isDef(val: any): boolean {
 export function isUnDef(val: any): boolean {
   return typeof val === 'undefined'
 }
+
+/**
+ * Determine if a value is a String
+ *
+ * @param {*} val The value to test
+ *
+ * @returns {boolean} True if value is a String, otherwise false
+ */
+export const isString = typeOfTest('string')
 
 export function extend<T, U>(to: T, from: U): T & U {
   for (const key in from) {

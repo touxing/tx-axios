@@ -1,4 +1,5 @@
-import { isPlainObject } from './util'
+import { AxiosRequestConfig } from './../../dist/types/types/index.d'
+import { isPlainObject, isString } from './util'
 
 export function transformRequest(data: any): any {
   if (isPlainObject(data)) {
@@ -7,14 +8,15 @@ export function transformRequest(data: any): any {
   return data
 }
 
-export function transformResponse(data: any): any {
+export function transformResponse(data: any, config?: AxiosRequestConfig): any {
   let result = data
-  // if (typeof data === 'string' && data !== '') {
-  //   try {
-  //     result = JSON.parse(data)
-  //   } catch (error) {
-  //     console.warn(error)
-  //   }
-  // }
+  const JSONRequested = config?.responseType === 'json'
+  if (data && isString(data) && JSONRequested) {
+    try {
+      result = JSON.parse(data)
+    } catch (e) {
+      throw e
+    }
+  }
   return result
 }

@@ -18,8 +18,8 @@ const defaults: AxiosRequestConfig = {
     }
   ],
   transformResponse: [
-    function(data: any, headers: any): any {
-      return transformResponse(data)
+    function(data: any, config?: any): any {
+      return transformResponse(data, config)
     }
   ],
   xsrfCookieName: 'XSRF-TOKEN',

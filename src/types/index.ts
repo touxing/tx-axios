@@ -29,7 +29,7 @@ export interface HeadersDefaults {
 }
 
 export interface AxiosDefaults<D = any> {
-  headers: HeadersDefaults
+  headers?: HeadersDefaults
   onDownloadProgress?: (e: ProgressEvent<EventTarget>) => void
   onUploadProgress?: (e: ProgressEvent<EventTarget>) => void
 }
@@ -110,7 +110,7 @@ export interface AxiosInstance extends Axios {
   <T = any>(url: string, config?: AxiosPromise): AxiosPromise<T>
 }
 
-export interface AxiosClassStaitc {
+export interface AxiosClassStatic {
   new (config: AxiosRequestConfig): Axios
 }
 export interface AxiosStatic extends AxiosInstance {
@@ -120,7 +120,7 @@ export interface AxiosStatic extends AxiosInstance {
   isCancel: (value: any) => boolean
   all<T>(promise: Array<T | Promise<T>>): Promise<T[]>
   spread<T, R>(callback: (...args: T[]) => R): (arr: T[]) => R
-  Axios: AxiosClassStaitc
+  Axios: AxiosClassStatic
 }
 
 export interface AxiosInterceptorManager<T> {
