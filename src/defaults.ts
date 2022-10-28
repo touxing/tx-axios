@@ -2,7 +2,6 @@ import { transformRequest, transformResponse } from './helpers/data'
 import { processHeaders } from './helpers/headers'
 import { AxiosRequestConfig } from './types'
 
-// @ts-ignore
 const defaults: AxiosRequestConfig = {
   method: 'get',
   timeout: 0,

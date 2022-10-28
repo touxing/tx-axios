@@ -78,31 +78,31 @@ export interface AxiosError<T = any> extends Error {
 }
 
 export interface Axios {
-  defaults: AxiosDefaults
+  defaults?: AxiosDefaults
 
-  interceptors: {
-    request: AxiosInterceptorManager<AxiosRequestConfig>
-    response: AxiosInterceptorManager<AxiosResponse>
+  interceptors?: {
+    request?: AxiosInterceptorManager<AxiosRequestConfig>
+    response?: AxiosInterceptorManager<AxiosResponse>
   }
   transformRequest?: AxiosTransformer | AxiosTransformer[]
   transformResponse?: AxiosTransformer | AxiosTransformer[]
-  getUri(config: AxiosRequestConfig): string
+  getUri?(config: AxiosRequestConfig): string
 
-  request<T = any>(config: AxiosRequestConfig): AxiosPromise<T>
+  request?<T = any>(config: AxiosRequestConfig): AxiosPromise<T>
 
-  get<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
+  get?<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
 
-  delete<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
+  delete?<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
 
-  head<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
+  head?<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
 
-  options<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
+  options?<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
 
-  post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
+  post?<T = any>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
 
-  put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
+  put?<T = any>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
 
-  patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
+  patch?<T = any>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
 }
 
 export interface AxiosInstance extends Axios {
