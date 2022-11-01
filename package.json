@@ -1,6 +1,6 @@
 {
   "name": "ts-axios",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "",
   "keywords": [],
   "main": "dist/ts-axios.umd.js",
@@ -78,9 +78,7 @@
       "<rootDir>/test/boot.ts"
     ],
     "globals": {
-      "ts-test": {
-
-      }
+      "ts-test": {}
     }
   },
   "prettier": {
