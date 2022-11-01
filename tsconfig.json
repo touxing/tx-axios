@@ -17,10 +17,14 @@
     "typeRoots": [ // 声明文件目录，默认时node_modules/@types
       "node_modules/@types"
     ],
-    "types": [
-      "@types/lodash"
+    "types": [ // 遇到 @types/node 版本问题，所有types需要在这里手动添加
+      "@types/node",
+      "@types/lodash",
+      "@types/jest",
+      "@types/jasmine-ajax",
+      "@types/nprogress"
     ],
-    "listEmittedFiles": true // 打印输出文件
+    // "listEmittedFiles": true // 打印输出文件
   },
   "include": [
     "src"
