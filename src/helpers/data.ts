@@ -1,5 +1,4 @@
-import { AxiosRequestConfig } from './../../dist/types/types/index.d'
-import { isPlainObject, isString } from './util'
+import { isObject, isPlainObject, isString } from './util'
 
 export function transformRequest(data: any): any {
   if (isPlainObject(data)) {
@@ -10,7 +9,10 @@ export function transformRequest(data: any): any {
 
 export function transformResponse(data: any, headers?: any): any {
   let result = data
-  const JSONRequested = headers?.['content-type']?.indexOf('application/json') > -1
+  const JSONRequested =
+    isObject(headers) &&
+    isString(headers['content-type']) &&
+    headers['content-type'].indexOf('application/json') > -1
   if (data && isString(data) && JSONRequested) {
     try {
       result = JSON.parse(data)

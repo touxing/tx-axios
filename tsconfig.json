@@ -1,20 +1,26 @@
 {
   "compilerOptions": {
     "moduleResolution": "node",
-    "target": "es5",
-    "module":"es2015",
+    "target": "es5", // 输出目标版本
+    "module":"es2015", // 生成代码模块版本
+    // TS需要引用的库，即声明文件，es5 默认引用dom、es5、scripthost,
+    // 如需要使用es的高级版本特性，通常都需要配置，如es8的数组新特性需要引入"ES2019.Array"
     "lib": ["es2015", "es2016", "es2017", "dom"],
-    "strict": true,
-    "sourceMap": true,
-    "declaration": true,
-    "allowSyntheticDefaultImports": true,
+    "strict": true, // js严格模式
+    "sourceMap": true, // 开启sourceMap
+    "declaration": true, // 生成声明文件
+    "allowSyntheticDefaultImports": true, //
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "declarationDir": "dist/types",
-    "outDir": "dist/lib",
-    "typeRoots": [
+    "declarationDir": "dist/types", // 声明文件的路径
+    "outDir": "dist/lib", // 输出声明文件的路径
+    "typeRoots": [ // 声明文件目录，默认时node_modules/@types
       "node_modules/@types"
-    ]
+    ],
+    "types": [
+      "@types/lodash"
+    ],
+    "listEmittedFiles": true // 打印输出文件
   },
   "include": [
     "src"

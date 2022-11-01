@@ -34,7 +34,7 @@
     "semantic-release-prepare": "ts-node tools/semantic-release-prepare",
     "precommit": "lint-staged",
     "travis-deploy-once": "travis-deploy-once",
-    "prepub": "npm run test:prod && npm run build",
+    "prepub": "npm run test:prod && npm run prebuild && npm run build",
     "pub": "sh release.sh"
   },
   "lint-staged": {
@@ -90,9 +90,11 @@
   "devDependencies": {
     "@commitlint/cli": "^7.1.2",
     "@commitlint/config-conventional": "^7.1.2",
+    "@rollup/plugin-babel": "^6.0.2",
     "@types/jasmine-ajax": "^3.3.3",
     "@types/jest": "^24.0.13",
-    "@types/node": "^10.11.0",
+    "@types/lodash": "^4.14.112",
+    "@types/node": "^17.0.21",
     "@types/nprogress": "^0.2.0",
     "atob": "^2.1.2",
     "body-parser": "^1.19.0",
@@ -114,6 +116,7 @@
     "jest-config": "^24.8.0",
     "lint-staged": "^8.0.0",
     "lodash.camelcase": "^4.3.0",
+    "nprogress": "^0.2.0",
     "prettier": "^1.14.3",
     "prompt": "^1.0.0",
     "qs": "^6.11.0",
@@ -137,12 +140,10 @@
     "tslint-config-standard": "^8.0.1",
     "tslint-loader": "^3.5.4",
     "typedoc": "^0.12.0",
-    "typescript": "^3.0.3",
+    "typescript": "3.8",
     "webpack": "^4.28.4",
     "webpack-dev-middleware": "^3.5.0",
     "webpack-hot-middleware": "^2.24.3"
   },
-  "dependencies": {
-    "nprogress": "^0.2.0"
-  }
+  "dependencies": {}
 }

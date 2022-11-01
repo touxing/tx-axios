@@ -30,7 +30,9 @@ export interface HeadersDefaults {
 
 export interface AxiosDefaults {
   headers: HeadersDefaults
+  // @ts-ignore build编译报错 Type 'ProgressEvent' is not generic.
   onDownloadProgress?: (e: ProgressEvent<EventTarget>) => void
+  // @ts-ignore
   onUploadProgress?: (e: ProgressEvent<EventTarget>) => void
 }
 
