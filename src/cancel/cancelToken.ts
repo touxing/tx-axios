@@ -12,7 +12,7 @@ export default class CancelToken {
   constructor(executor: CancelExecutor) {
     let resolvePromise: ResolvePromise
     this.promise = new Promise<Cancel>(resolve => {
-      resolvePromise = resolve
+      resolvePromise = resolve as ResolvePromise
     })
 
     executor(message => {
