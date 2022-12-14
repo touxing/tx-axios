@@ -1,4 +1,4 @@
-import axios, { Cancel } from '../../src/index'
+import axios, { Canceler } from '../../src/index'
 
 const CancelToken = axios.CancelToken
 const source = CancelToken.source()
@@ -22,7 +22,7 @@ setTimeout(() => {
   })
 }, 100);
 
-let cancel: Cancel
+let cancel: Canceler
 
 axios.get('/cancel/get?a=hello', {
   cancelToken: new CancelToken(c => {
